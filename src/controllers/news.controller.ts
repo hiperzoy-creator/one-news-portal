@@ -19,35 +19,33 @@ export async function handleGetNews(
 ) {
     try {
         const {
-        sourceId,
-        from,
-        to,
-        search,
-        sortOrder = "desc",
-        page = "1",
-        limit = "25",
+            sourceId,
+            date,
+            search,
+            sortOrder = "desc",
+            page = "1",
+            limit = "25",
         } = req.query
 
         const result = await getAllNews({
-        sourceId,
-        from,
-        to,
-        search,
-        sortOrder,
-        page,
-        limit,
+            sourceId,
+            date,
+            search,
+            sortOrder,
+            page,
+            limit,
         })
 
         res.status(200).json({
-        status: "success",
-        code: 200,
-        message: "Data berhasil ditemukan!",
-        data: result.data,
-        meta: {
-            total: result.total,
-            page: result.page,
-            limit: result.limit,
-        },
+            status: "success",
+            code: 200,
+            message: "Data berhasil ditemukan!",
+            data: result.data,
+            meta: {
+                total: result.total,
+                page: result.page,
+                limit: result.limit,
+            },
         })
     } catch (error) {
         console.error(error)

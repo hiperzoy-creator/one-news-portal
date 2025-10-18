@@ -4,6 +4,6 @@ import { fetchNewsController, handleGetNews,  } from "~/controllers/news.control
 const router = Router();
 
 router.get("/news-cron", fetchNewsController);
-router.get("/get-all-news", handleGetNews)
+router.get("/get-all-news", handleGetNews);
 
 export default router;

@@ -112,8 +112,7 @@ function extractImageFromContent(content?: string): string | null {
 
 export async function getAllNews({
     sourceId,
-    from,
-    to,
+    date,
     search,
     sortOrder = "desc",
     page = "1",
@@ -125,7 +124,7 @@ export async function getAllNews({
 
     const where: {
         sourceId?: number
-        pubDate?: { gte?: Date; lte?: Date }
+        pubDate?: { gte?: Date; lt?: Date }
         OR?: { title?: { contains: string; mode: "insensitive" }; snippet?: { contains: string; mode: "insensitive" }; content?: { contains: string; mode: "insensitive" } }[]
     } = {}
 
@@ -133,29 +132,30 @@ export async function getAllNews({
         where.sourceId = Number(sourceId)
     }
 
-    if (from || to) {
-        where.pubDate = {}
-        if (from) where.pubDate.gte = new Date(from)
-        if (to) where.pubDate.lte = new Date(to)
+    if (date) {
+        const start = new Date(`${date}T00:00:00+07:00`)
+        const end = new Date(`${date}T23:59:59+07:00`)
+
+        where.pubDate = { gte: start, lt: end }
     }
 
     if (search && search.trim().length > 0) {
         where.OR = [
-        { title: { contains: search, mode: "insensitive" } },
-        { snippet: { contains: search, mode: "insensitive" } },
-        { content: { contains: search, mode: "insensitive" } },
+            { title: { contains: search, mode: "insensitive" } },
+            { snippet: { contains: search, mode: "insensitive" } },
+            { content: { contains: search, mode: "insensitive" } },
         ]
     }
 
     const [data, total] = await Promise.all([
         prisma.article.findMany({
-        where,
-        orderBy: { pubDate: "desc" },
-        skip,
-        take: limitNum,
-        include: {
-            source: { select: { id: true, name: true, category: true } },
-        },
+            where,
+            orderBy: { pubDate: "desc" },
+            skip,
+            take: limitNum,
+            include: {
+                source: { select: { id: true, name: true, category: true } },
+            },
         }),
         prisma.article.count({ where }),
     ])
