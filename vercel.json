@@ -2,5 +2,11 @@
   "buildCommand": "bun install && bunx prisma generate",
   "installCommand": "bun install",
   "outputDirectory": ".",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "bun" 
+    }
+  },
+  "bunVersion": "1.x" 
   }
 }
