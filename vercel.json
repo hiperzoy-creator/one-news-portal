@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/**/*.ts": {
+    "src/**/*.ts": {
       "runtime": "vercel-bun@1.0.0"
     }
   },
