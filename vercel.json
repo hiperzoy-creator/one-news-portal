@@ -2,9 +2,5 @@
   "buildCommand": "bun install && bunx prisma generate",
   "installCommand": "bun install",
   "outputDirectory": ".",
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "vercel-nodejs@20"
-    }
   }
 }
