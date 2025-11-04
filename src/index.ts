@@ -19,6 +19,11 @@ app.use(cors(allowedOrigin))
 app.use("/", routes);
 app.use(errorHandler);
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`✅ Server running locally at http://localhost:${port}`);
+  });
+}
+
+// ✅ Export app untuk Vercel (WAJIB)
+export default app;
