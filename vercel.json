@@ -1,10 +1,10 @@
 {
-  "functions": {
-    "src/**/*.ts": {
-      "runtime": "vercel-bun@1.0.0"
-    }
-  },
   "buildCommand": "bun install",
   "installCommand": "bun install",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "vercel-bun@1.0.0"
+    }
+  }
 }
