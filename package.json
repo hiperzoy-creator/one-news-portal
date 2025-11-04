@@ -23,6 +23,7 @@
     "winston": "^3.18.3"
   },
   "scripts": {
-    "dev": "bun --watch src/index.ts"
+    "dev": "bun --watch src/index.ts",
+    "vercel-build": "bun install"
   }
 }
